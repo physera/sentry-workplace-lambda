@@ -20,12 +20,12 @@ def lambda_handler(event, context):
         body.get("culprit"),
         body.get("project"),
     )
-    
+
     data = {
         'formatting': 'MARKDOWN',
         'message': msg,
     }
-    resp = requests.post(url, headers=post_headers, data=data).json()
+    requests.post(url, headers=post_headers, data=data)
 
     print("Posted to group!")
     return {"statusCode": 200, "body": "Victory!"}
