@@ -5,7 +5,7 @@ from botocore.vendored import requests
 
 
 def sanitize(s):
-    return s.replace("<", "&lt;").replace(">", "&gt;")
+    return s.replace("<", r'\<').replace(">", r'\>')
 
 
 def lambda_handler(event, context):
