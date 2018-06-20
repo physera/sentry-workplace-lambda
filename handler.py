@@ -4,6 +4,10 @@ import os
 from botocore.vendored import requests
 
 
+def sanitize(s):
+    return s.replace("<", "&lt;").replace(">", "&gt;")
+
+
 def lambda_handler(event, context):
     post_headers = {
         "Authorization": "Bearer {}".format(os.environ['FB_API_TOKEN']),
@@ -15,9 +19,9 @@ def lambda_handler(event, context):
     body = event["body"]
     body = json.loads(body)
     msg = "[**{}**]({})\n**Culprit**\n{}\n**Project**\n{}".format(
-        body.get("message"),
+        sanitize(body.get("message")),
         body.get("url"),
-        body.get("culprit"),
+        sanitize(body.get("culprit")),
         body.get("project"),
     )
 
